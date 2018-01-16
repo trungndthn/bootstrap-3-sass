@@ -1,5 +1,5 @@
 require_relative 'char_string_scanner'
-require 'bootstrap-sass/version'
+require 'bootstrap-3-sass/version'
 
 # This is the script used to automatically convert all of twbs/bootstrap LESS to Sass.
 #
@@ -100,7 +100,7 @@ class Converter
             file = replace_all file, %r{(\$icon-font-path): \s*"(.*)" (!default);}, "\n" + unindent(<<-SCSS, 14)
               // [converter] If $bootstrap-sass-asset-helper if used, provide path relative to the assets load path.
               // [converter] This is because some asset helpers, such as Sprockets, do not work with file-relative paths.
-              \\1: if($bootstrap-sass-asset-helper, "bootstrap/", "\\2bootstrap/") \\3;
+              \\1: if($bootstrap-sass-asset-helper, "bootstrap-3/", "\\2bootstrap/") \\3;
             SCSS
           when 'breadcrumbs.less'
             file = replace_all file, /(.*)(\\00a0)/, unindent(<<-SCSS, 8) + "\\1\#{$nbsp}"
@@ -143,14 +143,14 @@ class Converter
       end
 
       # move bootstrap/_bootstrap.scss to _bootstrap.scss adjusting import paths
-      main_from = "#{save_to}/_bootstrap.scss"
-      main_to   = File.expand_path("#{save_to}/../_bootstrap.scss")
-      save_file main_to, File.read(main_from).gsub(/ "/, ' "bootstrap/')
+      main_from = "#{save_to}/_bootstrap-3.scss"
+      main_to   = File.expand_path("#{save_to}/../_bootstrap-3.scss")
+      save_file main_to, File.read(main_from).gsub(/ "/, ' "bootstrap-3/')
       File.delete(main_from)
 
       # generate variables template
-      save_file 'templates/project/_bootstrap-variables.sass',
-                "// Override Bootstrap variables here (defaults from bootstrap-sass v#{Bootstrap::VERSION}):\n\n" +
+      save_file 'templates/project/_bootstrap-3-variables.sass',
+                "// Override Bootstrap variables here (defaults from bootstrap-sass v#{Bootstrap3::VERSION}):\n\n" +
                     File.read("#{save_to}/_variables.scss").lines[1..-1].join.gsub(/^(?=\$)/, '// ').gsub(/ !default;/, '')
     end
 

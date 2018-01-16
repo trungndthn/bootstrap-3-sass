@@ -13,7 +13,7 @@ class SassTest < Minitest::Test
       %x[rm -rf .sass-cache/]
       %x[bundle]
     end
-    css_path = File.join GEM_PATH, 'tmp/bootstrap-sass-only.css'
+    css_path = File.join GEM_PATH, 'tmp/bootstrap-3-sass-only.css'
     command  = "bundle exec ruby compile.rb #{Shellwords.escape css_path}"
     success  = Dir.chdir DUMMY_PATH do
       silence_stdout_if !ENV['VERBOSE'] do

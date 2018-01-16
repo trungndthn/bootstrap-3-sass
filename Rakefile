@@ -43,8 +43,8 @@ end
 desc 'Dumps output to a CSS file for testing'
 task :debug do
   require 'sass'
-  path = Bootstrap.stylesheets_path
-  %w(bootstrap).each do |file|
+  path = Bootstrap3.stylesheets_path
+  %w(bootstrap-3).each do |file|
     engine = Sass::Engine.for_file("#{path}/#{file}.scss", syntax: :scss, load_paths: [path])
     File.open("./#{file}.css", 'w') { |f| f.write(engine.render) }
   end
@@ -71,7 +71,7 @@ task :compile, :css_path do |t, args|
   css_path = args.with_defaults(css_path: 'tmp')[:css_path]
   puts Term::ANSIColor.bold "Compiling SCSS in #{path}"
   Dir.mkdir(css_path) unless File.directory?(css_path)
-  %w(_bootstrap bootstrap/_theme).each do |file|
+  %w(_bootstrap-3 bootstrap-3/_theme).each do |file|
     save_path = "#{css_path}/#{file.sub(/(^|\/)?_+/, '\1').sub('/', '-')}.css"
     puts Term::ANSIColor.cyan("  #{save_path}") + '...'
     engine    = Sass::Engine.for_file("#{path}/#{file}.scss", syntax: :scss, load_paths: [path])

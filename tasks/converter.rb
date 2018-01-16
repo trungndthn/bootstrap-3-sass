@@ -42,9 +42,9 @@ class Converter
     @cache_path = cache_path
     @repo_url   = "https://github.com/#@repo"
     @save_to    = {
-        js:    'assets/javascripts/bootstrap',
-        scss:  'assets/stylesheets/bootstrap',
-        fonts: 'assets/fonts/bootstrap'}.merge(save_to)
+        js:    'assets/javascripts/bootstrap-3',
+        scss:  'assets/stylesheets/bootstrap-3',
+        fonts: 'assets/fonts/bootstrap-3'}.merge(save_to)
   end
 
   def_delegators :@logger, :log, :log_status, :log_processing, :log_transform, :log_file_info, :log_processed, :log_http_get_file, :log_http_get_files, :silence_log
@@ -73,7 +73,7 @@ class Converter
 
   # Update version.rb file with BOOTSTRAP_SHA
   def store_version
-    path    = 'lib/bootstrap-sass/version.rb'
+    path    = 'lib/bootstrap-3-sass/version.rb'
     content = File.read(path).sub(/BOOTSTRAP_SHA\s*=\s*['"][\w]+['"]/, "BOOTSTRAP_SHA = '#@branch_sha'")
     File.open(path, 'w') { |f| f.write(content) }
   end
